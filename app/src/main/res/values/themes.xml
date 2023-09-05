@@ -4,7 +4,14 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:statusBarColor">@color/your_status_bar_color</item>
-    </style>
+        <item name="colorPrimary">@color/your_status_bar_color</item>   <!-- color for action bars-->    </style>
 
     <style name="Theme.InfinityWalls" parent="Base.Theme.InfinityWalls" />
+
+    <style name="InfinityWallsAvi" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">@color/your_status_bar_color</item>
+        <item name="colorPrimary">@color/your_status_bar_color</item>   <!-- color for action bars-->
+    </style>
 </resources>

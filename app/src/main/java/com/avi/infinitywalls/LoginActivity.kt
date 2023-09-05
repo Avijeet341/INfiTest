@@ -2,13 +2,17 @@ package com.avi.infinitywalls
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.avi.infinitywalls.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,11 +28,16 @@ class LoginActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var googleSignInClient: GoogleSignInClient
     lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         val view = loginBinding.root
         setContentView(view)
+
+        //cursor
+
+
 
         firebaseAuth=FirebaseAuth.getInstance()
         registerActivityForGoogleSignIn()
@@ -57,7 +66,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             forgetMyPasstextView.setOnClickListener {
-
+                   val intent=Intent(applicationContext,ForgotActivity::class.java)
+                    startActivity(intent)
             }
 
         }

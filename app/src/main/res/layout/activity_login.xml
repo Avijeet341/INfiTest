@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LoginBgLayout"
@@ -14,6 +13,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="10dp"
+        android:elevation="40dp"
         android:padding="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/fox3"
@@ -21,8 +21,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/foxbiro"
 
+        app:shapeAppearanceOverlay="@style/foxbiro"
         app:strokeColor="@color/white"
         app:strokeWidth="4dp" />
 
@@ -55,12 +55,14 @@
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="325dp"
         android:layout_height="57dp"
+        android:textCursorDrawable="@drawable/cursor_color"
         android:layout_marginTop="20dp"
         android:background="@drawable/edittextshape"
         android:drawableLeft="@drawable/mail"
         android:drawablePadding="15dp"
         android:elevation="5dp"
         android:ems="10"
+
         android:fontFamily="@font/lato_regular"
         android:hint="Email"
         android:inputType="textEmailAddress"
@@ -76,6 +78,7 @@
         android:layout_width="325dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
+        android:textCursorDrawable="@drawable/cursor_color"
         android:background="@drawable/edittextshape"
         android:drawableLeft="@drawable/lock"
         android:drawablePadding="15dp"
@@ -109,8 +112,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Continue With"
         android:fontFamily="@font/lato_bold"
+        android:text="Continue With"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/textView7"

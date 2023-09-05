@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
     }
 
     private fun setUpTabBar() {
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         builder.setMessage("Are you sure you want to exit the app?")
         builder.setPositiveButton("Yes") { _, _ ->
             // Perform the exit operation
-            finish()
+            finishAffinity()
         }
         builder.setNegativeButton("No") { dialog, _ ->
             // Dismiss the dialog if the user chooses not to exit

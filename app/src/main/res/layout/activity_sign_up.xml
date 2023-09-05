@@ -70,7 +70,6 @@
             style="@style/TextInputLayoutNoBorder"
             android:layout_width="325dp"
             android:layout_height="57dp"
-            app:boxBackgroundMode="none"
             android:background="@drawable/edittextshape"
             app:startIconDrawable="@drawable/mail"
             app:startIconTint="@color/black">
@@ -178,6 +177,7 @@
         android:indeterminate="true"
         android:visibility="invisible"
         app:indicatorColor="#2196f3"
+        android:elevation="10dp"
         app:indicatorSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
