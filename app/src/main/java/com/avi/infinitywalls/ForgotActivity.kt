@@ -17,7 +17,7 @@ class ForgotActivity : AppCompatActivity() {
         forgotBinding = ActivityForgotBinding.inflate(layoutInflater)
         val view = forgotBinding.root
         setContentView(view)
-        signUpBg()
+        background()
 
         forgotBinding.buttonResetPassword.setOnClickListener {
             val userEmail = forgotBinding.editTextViewEmailResetPassword.text.toString()
@@ -47,11 +47,13 @@ class ForgotActivity : AppCompatActivity() {
         }
     }
 
-    private fun signUpBg() {
-        val constraintLayout: ConstraintLayout = findViewById(R.id.signUpLayout)
+
+
+    private fun background(){
+        val constraintLayout: ConstraintLayout = findViewById(R.id.ForgotLayout)
         val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
-        animationDrawable.setEnterFadeDuration(2500)
-        animationDrawable.setExitFadeDuration(3000)
+        animationDrawable.setEnterFadeDuration(1000)
+        animationDrawable.setExitFadeDuration(2000)
         animationDrawable.start()
     }
 }

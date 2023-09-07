@@ -191,8 +191,8 @@ class LoginActivity : AppCompatActivity() {
     private fun animationLoginBg() {
         val constraintLayout: ConstraintLayout = findViewById(R.id.LoginBgLayout)
         val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
-        animationDrawable.setEnterFadeDuration(2500)
-        animationDrawable.setExitFadeDuration(3000)
+        animationDrawable.setEnterFadeDuration(1000)
+        animationDrawable.setExitFadeDuration(2000)
         animationDrawable.start()
     }
 }

@@ -22,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(view)
 
         //stop from going into night mode
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         //signUpBg()
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -69,8 +69,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun signUpBg() {
         val constraintLayout: ConstraintLayout = findViewById(R.id.signUpLayout)
         val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
-        animationDrawable.setEnterFadeDuration(2500)
-        animationDrawable.setExitFadeDuration(3000)
+        animationDrawable.setEnterFadeDuration(1000)
+        animationDrawable.setExitFadeDuration(2000)
         animationDrawable.start()
     }
 }
