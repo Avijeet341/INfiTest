@@ -44,10 +44,6 @@ class MainActivity : AppCompatActivity() {
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
-        mainBinding.buttonSignOut.setOnClickListener {
-            signOut()
-
-        }
 
 
     }
@@ -71,28 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun signOut() {
-        //email and password signOut
-        FirebaseAuth.getInstance().signOut()
 
-        //google account sign out
-        val gso= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail().build()
-
-        val googleSignInClient= GoogleSignIn.getClient(this,gso)
-        googleSignInClient.signOut().addOnCompleteListener {task->
-
-            if (task.isSuccessful){
-                Toast.makeText(applicationContext,"Sign Out is successful✅💕👍", Toast.LENGTH_SHORT).show()
-                val intent=Intent(this@MainActivity,LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-
-        }
-
-
-    }
 
     private fun setUpTabBar() {
 
