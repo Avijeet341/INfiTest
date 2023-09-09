@@ -4,14 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.avi.infinitywalls.databinding.CarouselLayoutBinding
 import com.google.android.material.animation.AnimationUtils
 
-class CarouselAdapter(val lis: ArrayList<CarouselModel>, val context: Context) :
-    RecyclerView.Adapter<CarouselAdapter.ItemViewHolder>() {
+class CarouselAdapter(val lis: List<CarouselModel>): ListAdapter<CarouselModel, CarouselAdapter.ItemViewHolder>(DiffUtilCallback) {
 
-    inner class ItemViewHolder(val binding: CarouselLayoutBinding) :
+    class ItemViewHolder(val binding: CarouselLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("RestrictedApi")
         fun bind(model: CarouselModel) {
@@ -31,20 +32,31 @@ class CarouselAdapter(val lis: ArrayList<CarouselModel>, val context: Context) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CarouselAdapter.ItemViewHolder {
+    ): ItemViewHolder {
         return ItemViewHolder(
             CarouselLayoutBinding.inflate(
-                LayoutInflater.from(context),
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: CarouselAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val model = lis[position]
         holder.bind(model)
     }
 
     override fun getItemCount() = lis.size
+
+    object DiffUtilCallback: DiffUtil.ItemCallback<CarouselModel>(){
+        override fun areItemsTheSame(oldItem: CarouselModel, newItem: CarouselModel): Boolean {
+            return oldItem.imageId==newItem.imageId
+        }
+
+        override fun areContentsTheSame(oldItem: CarouselModel, newItem: CarouselModel): Boolean {
+            return oldItem==newItem
+        }
+
+    }
 }

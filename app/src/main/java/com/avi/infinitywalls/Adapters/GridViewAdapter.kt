@@ -1,35 +1,48 @@
-package com.avi.infinitywalls.Adapters
-
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.avi.infinitywalls.Adapters.GridViewModel
 import com.avi.infinitywalls.R
 
-class GridViewAdapter(private val gridList: ArrayList<GridViewModel>, private val context: Context) :
-    RecyclerView.Adapter<GridViewAdapter.GridViewHolder>() {
+class GridViewAdapter(private val gridList: List<GridViewModel>): ListAdapter<GridViewModel, GridViewAdapter.ItemViewHolder>(DiffUtilCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.grid_item_layout, parent, false)
-        return GridViewHolder(view)
+    class ItemViewHolder(val binding: View) :
+        RecyclerView.ViewHolder(binding) {
+        fun bind(model: GridViewModel) {
+            binding.apply {
+                val imageView: ImageView = binding.findViewById(R.id.image_view)
+                imageView.setImageResource(model.imageId)
+            }
+        }
+
     }
 
-    override fun getItemCount(): Int {
-        return gridList.size
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ItemViewHolder {
+        return ItemViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.grid_item_layout, parent, false)
+        )
     }
 
-    override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
-        val gridItem = gridList[position]
-        holder.bind(gridItem)
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val model = gridList[position]
+        holder.bind(model)
     }
 
-    inner class GridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val imageView: ImageView = view.findViewById(R.id.image_view)
+    override fun getItemCount() = gridList.size
 
-        fun bind(gridItem: GridViewModel) {
-            imageView.setImageResource(gridItem.imageId)
+    object DiffUtilCallback: androidx.recyclerview.widget.DiffUtil.ItemCallback<GridViewModel>(){
+        override fun areItemsTheSame(oldItem: GridViewModel, newItem: GridViewModel): Boolean {
+            return oldItem.imageId == newItem.imageId
+        }
+
+        override fun areContentsTheSame(oldItem: GridViewModel, newItem: GridViewModel): Boolean {
+            return oldItem == newItem
         }
     }
 }

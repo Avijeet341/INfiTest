@@ -30,9 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:elevation="6dp"
         android:fontFamily="@font/lato_bold"
         android:text="Recently Uploaded:"
-        android:elevation="6dp"
         android:textColor="#3A3A3A"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,18 +42,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeFragmentRecyclerView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingStart="2dp"
-        android:paddingEnd="5dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recentlyUloadedtextView"
-        app:spanCount="3" />
-
-
+        app:spanCount="3"
+        tools:listitem="@layout/grid_item_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.avi.infinitywalls.Fragments
 
+import GridViewAdapter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.avi.infinitywalls.Adapters.CarouselAdapter
 import com.avi.infinitywalls.Adapters.CarouselModel
-import com.avi.infinitywalls.Adapters.GridViewAdapter
+
 import com.avi.infinitywalls.Adapters.GridViewModel
 import com.avi.infinitywalls.R
 import com.avi.infinitywalls.databinding.FragmentHomeBinding
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
             list.add(CarouselModel(R.drawable.white_skull, "white skull"))
             list.add(CarouselModel(R.drawable.women, "women"))
 
-        carouselAdapter = CarouselAdapter(list, requireContext())
+        carouselAdapter = CarouselAdapter(list)
 
         homeBinding.carouselRecyclerView.adapter = carouselAdapter
 
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
         gridList.add(GridViewModel(R.drawable.grid_leonado,"capsir"))
         gridList.add(GridViewModel(R.drawable.grid_game2,"capsir"))
         gridList.add(GridViewModel(R.drawable.grid_catmug,"capsir"))
-         gridViewAdapter=GridViewAdapter(gridList,requireContext())
+         gridViewAdapter=GridViewAdapter(gridList)
         homeBinding.homeFragmentRecyclerView.adapter=gridViewAdapter
 
 
