@@ -61,6 +61,6 @@ dependencies {
   //  implementation ("com.ramijemli.percentagechartview:percentagechartview:1.3.4")
     implementation ("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     implementation("com.github.bumptech.glide:glide:4.12.0")
-
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
 
 }
