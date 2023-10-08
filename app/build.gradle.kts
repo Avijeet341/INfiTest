@@ -62,5 +62,6 @@ dependencies {
     implementation ("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+   //implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
 
 }
