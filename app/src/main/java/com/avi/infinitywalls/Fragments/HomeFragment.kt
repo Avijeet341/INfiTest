@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.TextView
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,12 +27,14 @@ class HomeFragment : Fragment() {
     private lateinit var stickyTextView: TextView
     private lateinit var carouselRecyclerView: RecyclerView
     private var carouselRecyclerViewHeight: Int = 0
+    private var originalMarginSize: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Initialize the original margin size here
+        originalMarginSize = resources.getDimensionPixelSize(R.dimen.original_margin_size)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,14 +69,24 @@ class HomeFragment : Fragment() {
         // Set an OnScrollChangeListener to handle the sticky behavior
         homeBinding.scrollView.setOnScrollChangeListener(View.OnScrollChangeListener { _, _, scrollY, _, _ ->
             if (scrollY >= carouselRecyclerViewHeight) {
-                stickyTextView.translationY = (scrollY - carouselRecyclerViewHeight).toFloat()
+                // Calculate the offset for the sticky header
+                val offset = scrollY - carouselRecyclerViewHeight
+                stickyTextView.translationY = offset.toFloat()
+
+                // Remove the margin when the header is sticky
+                val layoutParams = stickyTextView.layoutParams as ViewGroup.MarginLayoutParams
+                layoutParams.topMargin = 0
+                stickyTextView.layoutParams = layoutParams
             } else {
+                // Reset the header view to its original state
                 stickyTextView.translationY = 0f
+                val layoutParams = stickyTextView.layoutParams as ViewGroup.MarginLayoutParams
+                layoutParams.topMargin = originalMarginSize
+                stickyTextView.layoutParams = layoutParams
             }
         })
-
-
     }
+
     private fun setupCarouselRecyclerView() {
 
         list.add(CarouselModel(R.drawable.fire, "fire"))
@@ -140,13 +151,4 @@ class HomeFragment : Fragment() {
         homeBinding.homeFragmentRecyclerView.adapter = gridViewAdapter
         homeBinding.homeFragmentRecyclerView.layoutManager = GridLayoutManager(context, 3)
     }
-
-
-
 }
-
-
-
-
-
-
