@@ -7,8 +7,14 @@ import com.avi.infinitywalls.Adapters.GridViewModel
 import com.avi.infinitywalls.databinding.GridItemLayoutBinding
 import com.bumptech.glide.Glide
 
-class GridViewAdapter(private val gridList: List<GridViewModel>) :
-    ListAdapter<GridViewModel, GridViewAdapter.ItemViewHolder>(DiffUtilCallback) {
+class GridViewAdapter(
+    private val gridList: List<GridViewModel>,
+    private val listener: OnItemClickListener?
+) : ListAdapter<GridViewModel, GridViewAdapter.ItemViewHolder>(DiffUtilCallback) {
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
 
     class ItemViewHolder(private val binding: GridItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -34,6 +40,12 @@ class GridViewAdapter(private val gridList: List<GridViewModel>) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val model = gridList[position]
         holder.bind(model)
+
+        listener?.let { listener ->
+            holder.itemView.setOnClickListener {
+                listener.onItemClick(position)
+            }
+        }
     }
 
     override fun getItemCount() = gridList.size

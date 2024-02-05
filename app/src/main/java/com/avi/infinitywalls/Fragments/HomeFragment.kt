@@ -1,6 +1,7 @@
 package com.avi.infinitywalls.Fragments
 
 import GridViewAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.avi.infinitywalls.Adapters.CarouselAdapter
 import com.avi.infinitywalls.Adapters.CarouselModel
 import com.avi.infinitywalls.Adapters.GridViewModel
 import com.avi.infinitywalls.R
+import com.avi.infinitywalls.SliderActivity
 import com.avi.infinitywalls.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -58,7 +60,8 @@ class HomeFragment : Fragment() {
         carouselRecyclerView = view.findViewById(R.id.carousel_recycler_view)
 
         // Calculate the height of the carousel RecyclerView
-        carouselRecyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        carouselRecyclerView.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 carouselRecyclerViewHeight = carouselRecyclerView.height
                 // Remove the listener to avoid multiple calls
@@ -88,7 +91,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCarouselRecyclerView() {
-
         list.add(CarouselModel(R.drawable.fire, "fire"))
         list.add(CarouselModel(R.drawable.fire_blue, "fire blue"))
         list.add(CarouselModel(R.drawable.fire_green, "fire green"))
@@ -103,7 +105,6 @@ class HomeFragment : Fragment() {
         list.add(CarouselModel(R.drawable.turtle, "turtle"))
         list.add(CarouselModel(R.drawable.white_skull, "white skull"))
         list.add(CarouselModel(R.drawable.women, "women"))
-
 
         carouselAdapter = CarouselAdapter(list)
         homeBinding.carouselRecyclerView.adapter = carouselAdapter
@@ -145,9 +146,16 @@ class HomeFragment : Fragment() {
         gridList.add(GridViewModel(R.drawable.grid_game2,"capsir"))
         gridList.add(GridViewModel(R.drawable.grid_catmug,"capsir"))
 
+        gridViewAdapter = GridViewAdapter(gridList, object : GridViewAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                // Pass the selected position and all images to SliderActivity
+                val intent = Intent(requireContext(), SliderActivity::class.java)
+                intent.putExtra("selectedPosition", position)
+                intent.putIntegerArrayListExtra("allImages", gridList.map { it.imageId } as ArrayList<Int>)
+                startActivity(intent)
+            }
+        })
 
-
-        gridViewAdapter = GridViewAdapter(gridList)
         homeBinding.homeFragmentRecyclerView.adapter = gridViewAdapter
         homeBinding.homeFragmentRecyclerView.layoutManager = GridLayoutManager(context, 3)
     }
