@@ -3,6 +3,7 @@ package com.avi.infinitywalls
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -16,7 +17,6 @@ class SliderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slider)
-
         val selectedPosition = intent.getIntExtra("selectedPosition", 0)
         val allImages = intent.getIntegerArrayListExtra("allImages")
 

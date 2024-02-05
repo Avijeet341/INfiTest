@@ -2,12 +2,14 @@ package com.avi.infinitywalls.Adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.avi.infinitywalls.R
+import com.avi.infinitywalls.SliderActivity
 import com.avi.infinitywalls.databinding.CarouselLayoutBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.animation.AnimationUtils
@@ -18,7 +20,7 @@ class CarouselAdapter(val lis: List<CarouselModel>) : ListAdapter<CarouselModel,
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("RestrictedApi")
-        fun bind(model: CarouselModel, context: Context) {
+        fun bind(model: CarouselModel, context: Context, lis: List<CarouselModel>) {
             binding.apply {
                 carouselTextView.text = model.title
                 carouselItemContainer.setOnMaskChangedListener { maskRect ->
@@ -32,6 +34,14 @@ class CarouselAdapter(val lis: List<CarouselModel>) : ListAdapter<CarouselModel,
                     .placeholder(R.drawable.fire_blue) // You can set a placeholder image
                     .error(R.drawable.fire_blue) // You can set an error image
                     .into(carouselImageView)
+            }
+
+            // Set click listener to launch SliderActivity
+            itemView.setOnClickListener {
+                val intent = Intent(context, SliderActivity::class.java)
+                intent.putExtra("selectedPosition", adapterPosition)
+                intent.putIntegerArrayListExtra("allImages", lis.map { it.imageId } as ArrayList<Int>)
+                context.startActivity(intent)
             }
         }
     }
@@ -51,7 +61,7 @@ class CarouselAdapter(val lis: List<CarouselModel>) : ListAdapter<CarouselModel,
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val model = lis[position]
-        holder.bind(model, holder.itemView.context)
+        holder.bind(model, holder.itemView.context, lis)
     }
 
     override fun getItemCount() = lis.size
