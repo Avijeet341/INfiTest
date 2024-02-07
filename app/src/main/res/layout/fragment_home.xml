@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                android:background="#FEF9F3"
+                android:background="@color/white"
                 app:paddingEnd="0dp"
                 tools:listitem="@layout/grid_item_layout" />
         </LinearLayout>

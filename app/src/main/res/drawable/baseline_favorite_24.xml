@@ -1,0 +1,46 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Path for the heart -->
+    <path
+        android:fillColor="#FF1493"
+        android:pathData="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z">
+    </path>
+
+    <!-- Animated pulsating effect -->
+    <group
+        android:scaleX="1"
+        android:scaleY="1"
+        android:pivotX="12"
+        android:pivotY="12">
+        <set android:interpolator="@android:anim/accelerate_decelerate_interpolator">
+            <scale
+                android:duration="1000"
+                android:repeatCount="infinite"
+                android:repeatMode="reverse"
+                android:fromXScale="1"
+                android:fromYScale="1"
+                android:toXScale="1.2"
+                android:toYScale="1.2" />
+        </set>
+    </group>
+
+    <!-- Animated rotating effect -->
+    <group
+        android:rotation="0"
+        android:pivotX="12"
+        android:pivotY="12">
+        <set android:interpolator="@android:anim/linear_interpolator">
+            <rotate
+                android:duration="2000"
+                android:repeatCount="infinite"
+                android:repeatMode="restart"
+                android:fromDegrees="0"
+                android:toDegrees="360" />
+        </set>
+    </group>
+
+</vector>

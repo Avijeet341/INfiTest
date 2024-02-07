@@ -1,26 +1,35 @@
 package com.avi.infinitywalls
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.avi.infinitywalls.Adapters.SliderAdapter
+import com.avi.infinitywalls.databinding.ActivitySliderBinding
 import kotlin.math.abs
 
 class SliderActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySliderBinding
     private lateinit var vpSlider: ViewPager2
     private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var zoomInAnim: Animation
+    private lateinit var zoomOutAnim: Animation
+    private var isLiked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_slider)
+        binding = ActivitySliderBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        zoomInAnim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_in)
+        zoomOutAnim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_out)
         val selectedPosition = intent.getIntExtra("selectedPosition", 0)
         val allImages = intent.getIntegerArrayListExtra("allImages")
 
-        vpSlider = findViewById(R.id.vpslider)
+        vpSlider = binding.vpslider
         vpSlider.offscreenPageLimit = 3
         vpSlider.setPageTransformer(getTransformation())
         sliderAdapter = SliderAdapter()
@@ -29,6 +38,52 @@ class SliderActivity : AppCompatActivity() {
 
         vpSlider.adapter = sliderAdapter
         vpSlider.setCurrentItem(selectedPosition, false)
+
+        binding.heart.setOnClickListener {
+            // Toggle like/dislike
+            if (isLiked) {
+                // Dislike
+                binding.heart.setImageResource(R.drawable.baseline_favorite_border_24)
+                isLiked = false
+            } else {
+                // Like
+                binding.heart.setImageResource(R.drawable.baseline_favorite_24)
+                isLiked = true
+            }
+            // Update liked state of the current image
+            sliderAdapter.updateLikedState(vpSlider.currentItem, isLiked)
+        }
+
+        // Add listener to handle double tap events from adapter
+        sliderAdapter.setOnItemClickListener(object : SliderAdapter.OnItemClickListener {
+            override fun onDoubleTap(position: Int) {
+                // Handle double tap event
+                // Update heart and insideHeart views accordingly
+                // You can use vpSlider.currentItem to get the current item index
+                // Only like the image that is double-tapped
+                binding.heart.setImageResource(R.drawable.baseline_favorite_24)
+                binding.heart.startAnimation(zoomInAnim)
+                binding.insideHeart.startAnimation(zoomInAnim)
+                binding.insideHeart.startAnimation(zoomOutAnim)
+                isLiked = true
+                // Update liked state of the current image
+                sliderAdapter.updateLikedState(vpSlider.currentItem, isLiked)
+            }
+        })
+
+        // Add listener to handle page change events
+        vpSlider.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                // Update the liked state of the current image
+                isLiked = sliderAdapter.isLiked(position)
+                if (isLiked) {
+                    binding.heart.setImageResource(R.drawable.baseline_favorite_24)
+                } else {
+                    binding.heart.setImageResource(R.drawable.baseline_favorite_border_24)
+                }
+            }
+        })
     }
 
     private fun getTransformation(): CompositePageTransformer {
