@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -16,6 +17,7 @@ class SliderActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySliderBinding
     private lateinit var vpSlider: ViewPager2
     private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var imageNameTextView: TextView
     private lateinit var zoomInAnim: Animation
     private lateinit var zoomOutAnim: Animation
     private var isLiked = false
@@ -28,7 +30,8 @@ class SliderActivity : AppCompatActivity() {
         zoomOutAnim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_out)
         val selectedPosition = intent.getIntExtra("selectedPosition", 0)
         val allImages = intent.getIntegerArrayListExtra("allImages")
-
+        val allImageNames = intent.getStringArrayListExtra("allImageNames")
+         imageNameTextView=binding.ImageName
         vpSlider = binding.vpslider
         vpSlider.offscreenPageLimit = 3
         vpSlider.setPageTransformer(getTransformation())
@@ -39,16 +42,17 @@ class SliderActivity : AppCompatActivity() {
         vpSlider.adapter = sliderAdapter
         vpSlider.setCurrentItem(selectedPosition, false)
 
+
         binding.heart.setOnClickListener {
             // Toggle like/dislike
-            if (isLiked) {
+            isLiked = if (isLiked) {
                 // Dislike
                 binding.heart.setImageResource(R.drawable.baseline_favorite_border_24)
-                isLiked = false
+                false
             } else {
                 // Like
                 binding.heart.setImageResource(R.drawable.baseline_favorite_24)
-                isLiked = true
+                true
             }
             // Update liked state of the current image
             sliderAdapter.updateLikedState(vpSlider.currentItem, isLiked)
@@ -82,6 +86,8 @@ class SliderActivity : AppCompatActivity() {
                 } else {
                     binding.heart.setImageResource(R.drawable.baseline_favorite_border_24)
                 }
+                // Update the ImageName textView value
+                imageNameTextView.text = allImageNames?.get(position) ?: ""
             }
         })
     }
@@ -110,4 +116,6 @@ class SliderActivity : AppCompatActivity() {
         }
         return transform
     }
+
+
 }

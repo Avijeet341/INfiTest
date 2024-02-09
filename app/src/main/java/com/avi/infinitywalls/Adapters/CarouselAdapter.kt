@@ -41,6 +41,7 @@ class CarouselAdapter(val lis: List<CarouselModel>) : ListAdapter<CarouselModel,
                 val intent = Intent(context, SliderActivity::class.java)
                 intent.putExtra("selectedPosition", adapterPosition)
                 intent.putIntegerArrayListExtra("allImages", lis.map { it.imageId } as ArrayList<Int>)
+                intent.putStringArrayListExtra("allImageNames", lis.map { it.title } as ArrayList<String>)
                 context.startActivity(intent)
             }
         }

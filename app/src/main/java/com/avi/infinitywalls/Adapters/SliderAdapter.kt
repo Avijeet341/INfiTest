@@ -18,7 +18,7 @@ class SliderAdapter : ListAdapter<Int, SliderAdapter.ViewHolder>(DiffCallback())
     private var likedStates = mutableListOf<Boolean>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivWallpaper: ImageView = itemView.findViewById(R.id.wallpaper)
+        private val ivWallpaper: ImageView = itemView.findViewById(R.id.wallpaper)
 
         @SuppressLint("ClickableViewAccessibility")
         fun onBind(wallpaper: Int) {
