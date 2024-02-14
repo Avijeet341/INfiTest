@@ -1,9 +1,11 @@
 package com.avi.infinitywalls
 
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -26,12 +28,15 @@ class SliderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySliderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         zoomInAnim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_in)
         zoomOutAnim = AnimationUtils.loadAnimation(applicationContext, R.anim.zoom_out)
         val selectedPosition = intent.getIntExtra("selectedPosition", 0)
         val allImages = intent.getIntegerArrayListExtra("allImages")
         val allImageNames = intent.getStringArrayListExtra("allImageNames")
-         imageNameTextView=binding.ImageName
+        imageNameTextView = binding.ImageName
+
+        imageNameTextView.text = allImageNames?.get(selectedPosition) ?: "Hello"
         vpSlider = binding.vpslider
         vpSlider.offscreenPageLimit = 3
         vpSlider.setPageTransformer(getTransformation())
@@ -45,15 +50,8 @@ class SliderActivity : AppCompatActivity() {
 
         binding.heart.setOnClickListener {
             // Toggle like/dislike
-            isLiked = if (isLiked) {
-                // Dislike
-                binding.heart.setImageResource(R.drawable.baseline_favorite_border_24)
-                false
-            } else {
-                // Like
-                binding.heart.setImageResource(R.drawable.baseline_favorite_24)
-                true
-            }
+            isLiked = !isLiked
+            binding.heart.setImageResource(if (isLiked) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24)
             // Update liked state of the current image
             sliderAdapter.updateLikedState(vpSlider.currentItem, isLiked)
         }
@@ -93,29 +91,50 @@ class SliderActivity : AppCompatActivity() {
     }
 
     private fun getTransformation(): CompositePageTransformer {
-        val transform = CompositePageTransformer()
-        transform.addTransformer(MarginPageTransformer(30))
-        transform.addTransformer { page, position ->
-            val alpha = 0.5f + 0.5f * (1 - abs(position))
-            page.alpha = alpha
-            page.scaleY = 0.85f + alpha * 0.15f
+        return CompositePageTransformer().apply {
+            // Add margin to each page
+            addTransformer(MarginPageTransformer(30))
 
-            val elevation = if (position == 0f) 10f else 0f
-            page.translationZ = elevation
+            // Apply a custom transformation
+            addTransformer { page, position ->
+                // Calculate alpha value for transparency
+                val alpha = 0.5f + 0.5f * (1 - abs(position))
 
-            val rotation = -20 * position
-            page.rotation = rotation
+                // Set transparency and scale based on position
+                page.alpha = alpha
+                page.scaleY = 0.85f + alpha * 0.15f
 
-            val depth = -120 * abs(position)
-            page.cameraDistance = 8000f
-            page.translationX = depth
+                // Add elevation for a 3D effect
+                val elevation = if (position == 0f) 5f else 0f
+                page.translationZ = elevation
 
-            val fadeOut = if (position == 0f) 0f else 0.7f
-            page.alpha = 1 - fadeOut * abs(position)
-            page.animate().setDuration(300).setInterpolator(DecelerateInterpolator()).start()
+                // Apply rotation
+                val rotation = -20 * position
+                page.rotation = rotation
+
+                // Create a 3D depth effect
+                val depth = -120 * abs(position)
+                page.cameraDistance = 8000f
+                page.translationX = depth
+
+                // Apply fading effect with bounce animation
+                val fadeOut = if (position == 0f) 0f else 0.7f
+                val fadeAlpha = 1 - fadeOut * abs(position)
+                page.alpha = fadeAlpha
+
+                // Apply bounce effect
+                val absPosition = abs(position)
+                val bounceScale = if (absPosition > 1) 0.85f else (0.85f + (1 - absPosition) * 0.15f)
+                page.scaleX = bounceScale
+                page.scaleY = bounceScale
+
+                // Adjust saturation
+                if (page is ImageView) {
+                    val saturation = 1 - 0.5f * abs(position)
+                    val colorMatrix = ColorMatrix().apply { setSaturation(saturation) }
+                    val filter = ColorMatrixColorFilter(colorMatrix)
+                    page.colorFilter = filter
+                }
+            }
         }
-        return transform
-    }
-
-
-}
+    }}
