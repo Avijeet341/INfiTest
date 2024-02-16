@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.avi.infinitywalls"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -64,6 +64,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
-   //implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
+    implementation ("com.vanniktech:android-image-cropper:4.5.0")
+
+    //implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.5.21")
 
 }

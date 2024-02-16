@@ -17,11 +17,4 @@
     android:textColor="@color/white"
     android:textStyle="bold"
     android:textSize="20sp"/>
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/iv_image"
-        android:src="@drawable/umbrella"
-        android:layout_marginStart="10dp"
-        android:contentDescription="@string/todo" />
 </LinearLayout>
