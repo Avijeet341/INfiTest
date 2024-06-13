@@ -51,43 +51,42 @@ class HomeFragment : Fragment() {
             GridViewModel(R.drawable.space3,"Space"),
             GridViewModel(R.drawable.venom,"Venom"),
             GridViewModel(R.drawable.superman,"Super Man"),
-            GridViewModel(R.drawable.grid_art, "art"),
-            GridViewModel(R.drawable.grid_luffy2, "luffy"),
-            GridViewModel(R.drawable.grid_holy_owl, "holy owl"),
-            GridViewModel(R.drawable.grid_blackhair_girl, "black hair girl"),
             GridViewModel(R.drawable.spider_man, "spider_man"),
             GridViewModel(R.drawable.cap, "cap"),
             GridViewModel(R.drawable.goku_red, "goku_red"),
             GridViewModel(R.drawable.spider2, "spider2"),
-            GridViewModel(R.drawable.grid_cap_si, "capsir"),
-            GridViewModel(R.drawable.grid_ironman, "ironman"),
-            GridViewModel(R.drawable.grid_money, "money"),
-            GridViewModel(R.drawable.grid_darkskin, "dark skin"),
-            GridViewModel(R.drawable.grid_dragonwal, "dragon wall"),
-            GridViewModel(R.drawable.grid_assasin, "assassin"),
-            GridViewModel(R.drawable.grid_drag_head, "Dragon head"),
-            GridViewModel(R.drawable.grid_movie, "movie"),
-            GridViewModel(R.drawable.grid_goldenfox, "golden fox"),
-            GridViewModel(R.drawable.grid_luffy1, "luffy1"),
-            GridViewModel(R.drawable.grid_whiteh, "white"),
-            GridViewModel(R.drawable.grid_spidi, "spidi"),
-            GridViewModel(R.drawable.grid_gow, "god of war"),
-
-            GridViewModel(R.drawable.grid_holy_fox, "holy fox"),
-
-            GridViewModel(R.drawable.grid_black_cat, "black cat"),
-            GridViewModel(R.drawable.grid_pika, "pika"),
-            GridViewModel(R.drawable.grid_black_pika, "black pika"),
-            GridViewModel(R.drawable.grid_goku, "goku"),
-            GridViewModel(R.drawable.grid_splash, "splash"),
-
-            GridViewModel(R.drawable.grid_worrior_fox, "worrier fox"),
-            GridViewModel(R.drawable.grid_drag_green, "Green Dragon"),
-            GridViewModel(R.drawable.grid_gamethron, "game of throne"),
-            GridViewModel(R.drawable.grid_pop_girl, "pop girl"),
+            GridViewModel(R.drawable.tangi, "tangi"),
+            GridViewModel(R.drawable.giyu_tomioka, "giyu"),
+            GridViewModel(R.drawable.spider3, "spider3"),
+            GridViewModel(R.drawable.madara, "madara"),
+            GridViewModel(R.drawable.sukuna_curse, "sukuna"),
+            GridViewModel(R.drawable.hashira, "hashira"),
+            GridViewModel(R.drawable.pain_akatsuki, "pain_akatsuki"),
+            GridViewModel(R.drawable.naruto_lake, "naruto_lake"),
+            GridViewModel(R.drawable.your_name, "your_name"),
+            GridViewModel(R.drawable.family, "family"),
+            GridViewModel(R.drawable.vespi, "merge"),
+            GridViewModel(R.drawable.kimetsu_no_yaiba, "kimetsu"),
+            GridViewModel(R.drawable.zenitsu_fanart, "zenitsu"),
+            GridViewModel(R.drawable.zenitsu_lightning, "zenitsu"),
+            GridViewModel(R.drawable.kokushibou_demon, "kokushibou"),
+            GridViewModel(R.drawable.kokushibo, "kokushibo"),
+            GridViewModel(R.drawable.vibe, "vibe"),
+            GridViewModel(R.drawable.itachi, "itachi"),
+            GridViewModel(R.drawable.this_is_good, "this_is_good"),
+            GridViewModel(R.drawable.kk, "kk"),
+            GridViewModel(R.drawable.doodle, "doodle"),
+            GridViewModel(R.drawable.space_light, "space_light"),
+            GridViewModel(R.drawable.squad, "squad"),
+            GridViewModel(R.drawable.grid_art, "art"),
+            GridViewModel(R.drawable.grid_luffy2, "luffy"),
+            GridViewModel(R.drawable.grid_holy_owl, "holy owl"),
+            GridViewModel(R.drawable.grid_blackhair_girl, "black hair girl"),
+            GridViewModel(R.drawable.inosuke, "inosuke"),
+            GridViewModel(R.drawable.black_sdam, "black_sdam"),
             GridViewModel(R.drawable.grid_leonado, "leonardo"),
-            GridViewModel(R.drawable.grid_game2, "girl"),
-            GridViewModel(R.drawable.grid_catmug, "Cat")
+            GridViewModel(R.drawable.grid_luffy1, "luffy"),
+            GridViewModel(R.drawable.grid_black_pika, "grid_black_pika")
         )
     }
 
@@ -102,7 +101,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return homeBinding.root
     }
@@ -150,12 +149,23 @@ class HomeFragment : Fragment() {
             }
         })
 
+        // Calculate number of columns dynamically
+        val spanCount = calculateNoOfColumns()
+
         homeBinding.homeFragmentRecyclerView.apply {
+            layoutManager = GridLayoutManager(requireContext(), spanCount)
             adapter = gridViewAdapter
-            layoutManager = GridLayoutManager(context, 3)
+
         }
     }
 
+    // Function to calculate number of columns dynamically
+    private fun calculateNoOfColumns(): Int {
+        val displayMetrics = resources.displayMetrics
+        val dpWidth = displayMetrics.widthPixels / displayMetrics.density
+        val scalingFactor = 120 // Change this scaling factor according to your needs
+        return (dpWidth / scalingFactor).toInt()
+    }
     private fun setupStickyHeader() {
         homeBinding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             adjustStickyHeader(scrollY)

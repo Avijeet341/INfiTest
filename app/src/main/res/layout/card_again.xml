@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardElevation="10dp" >
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_200sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/grid_black_pika"
+            android:focusable="true"
+            android:contentDescription="@string/to">
+        </ImageView>
+    </androidx.cardview.widget.CardView>

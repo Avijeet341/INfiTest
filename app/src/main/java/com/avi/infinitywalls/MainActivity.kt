@@ -1,21 +1,15 @@
 package com.avi.infinitywalls
 
-import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.avi.infinitywalls.databinding.ActivityMainBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class MainActivity : AppCompatActivity() {
 
@@ -119,11 +113,11 @@ class MainActivity : AppCompatActivity() {
         }
         builder.create().show()
     }
-//    private fun background(){
-//        val constraintLayout: ConstraintLayout = findViewById(R.id.LoginBgLayout)
-//        val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
-//        animationDrawable.setEnterFadeDuration(2500)
-//        animationDrawable.setExitFadeDuration(3000)
-//        animationDrawable.start()
-//    }
+  private fun background(){
+   val constraintLayout: ConstraintLayout = findViewById(R.id.LoginBgLayout)
+      val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
+     animationDrawable.setEnterFadeDuration(2500)
+       animationDrawable.setExitFadeDuration(3000)
+     animationDrawable.start()
+  }
 }

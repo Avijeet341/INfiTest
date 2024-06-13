@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".Fragments.HomeFragment">
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -27,7 +26,8 @@
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
-                tools:listitem="@layout/carousel_layout" />
+                tools:listitem="@layout/carousel_layout"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/recentlyUloadedtextView"
@@ -37,20 +37,21 @@
                 android:padding="8dp"
                 android:background="@color/white"
                 android:fontFamily="@font/lato_bold"
-                android:text="Recently Uploaded:"
+                android:text="@string/recently_uploaded"
                 android:textColor="#3A3A3A"
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/homeFragmentRecyclerView"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:translationZ="-1dp"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:background="@color/white"
-                app:paddingEnd="0dp"
-                tools:listitem="@layout/grid_item_layout" />
+                android:padding="8dp"
+                tools:listitem="@layout/card_grid_item" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
